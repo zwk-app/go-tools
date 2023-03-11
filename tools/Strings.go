@@ -1,4 +1,4 @@
-package strings
+package tools
 
 import (
 	"github.com/zwk-app/go-tools/logs"
