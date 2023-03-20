@@ -5,14 +5,16 @@ go get github.com/zwk-app/go-tools/logs
 ```
 
 ```go
+package main
+
 import (
 	"github.com/zwk-app/go-tools/logs"
 )
 
-func test() {
+func main() {
   logs.SetLevelInfo()
-  e := fmt.Errorf("some error")
-  logs.Debug("title", "message not displayed (debug)", e)
+  e := fmt.Errorf("some error in log and StdErr")
+  logs.Debug("title", "message not displayed (debug but Info log level)", e)
 }
 ```
 
@@ -23,11 +25,13 @@ go get github.com/zwk-app/go-tools/tools
 ```
 
 ```go
+package main
+
 import (
 	"github.com/zwk-app/go-tools/tools"
 )
 
-func test() {
+func main() {
   empty := ""
   value := tools.Fallback(empty, "fallback value")
 }

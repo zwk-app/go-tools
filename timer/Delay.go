@@ -136,6 +136,13 @@ func (r DelayString) Delay() (int, int, int, error) {
 	return 0, 0, 0, fmt.Errorf("invalid delay string '%s'", string(r))
 }
 
+func (r DelayString) DelayObject() time.Duration {
+	if h, m, s, e := r.Delay(); e == nil {
+		return time.Duration(((h * 3600) + (m * 60) + s) * int(time.Second))
+	}
+	return time.Duration(0)
+}
+
 func DelayTextFromDelay(h int, m int, s int) string {
 	if h > 0 {
 		return fmt.Sprintf("%02d:%02d:%02d", h, m, s)

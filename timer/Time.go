@@ -163,7 +163,7 @@ func TimeTextFromTime(h int, m int, s int) string {
 }
 
 //goland:noinspection GoUnusedExportedFunction
-func TimeTextFromObject(v *time.Time) string {
+func TimeTextFromObject(v time.Time) string {
 	return TimeTextFromTime(v.Hour(), v.Minute(), v.Second())
 }
 
