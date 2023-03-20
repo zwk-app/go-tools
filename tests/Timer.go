@@ -35,4 +35,5 @@ func RunTimerTests() {
 	TestTimerTargetTime()
 	TestTimerTargetDelay()
 	timer.Start()
+	time.Sleep(120 * time.Second)
 }
