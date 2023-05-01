@@ -1,3 +1,3 @@
-module go-tools
+module zwk-tools
 
 go 1.19

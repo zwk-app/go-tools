@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/go-tools.iml" filepath="$PROJECT_DIR$/.idea/go-tools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/zwk-tools.iml" filepath="$PROJECT_DIR$/.idea/zwk-tools.iml" />
     </modules>
   </component>
 </project>
