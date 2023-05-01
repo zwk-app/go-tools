@@ -56,7 +56,7 @@ func Logger() *Logs {
 		logger = new(Logs)
 		logger.stdOut = false
 		logger.fileName = ""
-		logger.level = DebugLevel
+		logger.level = InfoLevel
 	}
 	return logger
 }
