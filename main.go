@@ -1,7 +1,7 @@
 package main
 
 import (
-	"zwk-tools/tests"
+	"github.com/zwk-app/zwk-tools/tests"
 )
 
 func main() {
