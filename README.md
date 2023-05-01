@@ -1,14 +1,14 @@
 ## Logs
 
 ```bash
-go get github.com/zwk-app/go-tools/logs
+go get github.com/zwk-app/zwk-tools/logs
 ```
 
 ```go
 package main
 
 import (
-	"github.com/zwk-app/go-tools/logs"
+	"zwk-tools/logs"
 )
 
 func main() {
@@ -21,14 +21,14 @@ func main() {
 ## Tools
 
 ```bash
-go get github.com/zwk-app/go-tools/tools
+go get github.com/zwk-app/zwk-tools/tools
 ```
 
 ```go
 package main
 
 import (
-	"github.com/zwk-app/go-tools/tools"
+	"zwk-tools/tools"
 )
 
 func main() {

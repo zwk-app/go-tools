@@ -1,9 +1,9 @@
 package tools
 
 import (
-	"github.com/zwk-app/go-tools/logs"
 	"regexp"
 	"strconv"
+	"zwk-tools/logs"
 )
 
 // Fallback returns fallback if value is empty

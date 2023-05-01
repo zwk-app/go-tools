@@ -2,9 +2,9 @@ package tests
 
 import (
 	"fmt"
-	"go-tools/logs"
-	"go-tools/timer"
 	"time"
+	"zwk-tools/logs"
+	"zwk-tools/timer"
 )
 
 func TestTimerAlarmCallback(name string, alarm string) {

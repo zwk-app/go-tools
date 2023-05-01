@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-tools/tests"
+	"zwk-tools/tests"
 )
 
 func main() {
