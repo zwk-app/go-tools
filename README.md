@@ -1,19 +1,7 @@
-## Logs
+## Work In Progress
 
 ```bash
 go get github.com/zwk-app/zwk-tools/logs
-```
-
-```bash
-go get github.com/zwk-app/zwk-tools/tools
-```
-
-```bash
-go get github.com/zwk-app/zwk-tools/timer
-```
-
-```bash
-go get github.com/zwk-app/zwk-tools/tests
 ```
 
 ```bash
