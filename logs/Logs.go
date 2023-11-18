@@ -2,7 +2,6 @@ package logs
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"runtime"
 	"strings"
@@ -45,8 +44,10 @@ const LogsRuntimeCallerSkip = 4
 
 type Logs struct {
 	level    LogLevel
+	logFile  *os.File
 	fileName string
-	stdOut   bool
+	inStdOut bool
+	inFile   bool
 }
 
 var logger *Logs = nil
@@ -54,7 +55,8 @@ var logger *Logs = nil
 func Logger() *Logs {
 	if logger == nil {
 		logger = new(Logs)
-		logger.stdOut = false
+		logger.inStdOut = true
+		logger.inFile = false
 		logger.fileName = ""
 		logger.level = InfoLevel
 	}
@@ -83,9 +85,8 @@ func SetStdOut(enable bool) {
 	Debug("Logs", fmt.Sprintf("SetStdOut: '%t'", enable), nil)
 	if enable {
 		Info("Logs", fmt.Sprintf("Using StdOut"), nil)
-		log.SetOutput(os.Stdout)
-		Logger().stdOut = enable
 	}
+	Logger().inStdOut = enable
 }
 
 //goland:noinspection GoUnusedExportedFunction
@@ -95,11 +96,14 @@ func SetFileName(fileName string) {
 		f, e := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE, 0644)
 		if e == nil {
 			Info("Logs", fmt.Sprintf("Using '%s'", fileName), nil)
-			log.SetOutput(f)
 			Logger().fileName = fileName
+			Logger().logFile = f
+			Logger().inFile = true
 		} else {
 			Warn("Logs", fmt.Sprintf("SetFileName: cannot write in file '%s'", fileName), e)
 		}
+	} else {
+		Logger().inFile = false
 	}
 }
 
@@ -134,6 +138,17 @@ func formatLog(level LogLevel, title string, message string) string {
 	return logMessage
 }
 
+func writeMessage(message string, isError bool) {
+	if isError {
+		os.Stderr.WriteString(fmt.Sprintf("%s\n", message))
+	} else if Logger().inStdOut {
+		os.Stdout.WriteString(fmt.Sprintf("%s\n", message))
+	}
+	if Logger().inFile {
+		Logger().logFile.WriteString(fmt.Sprintf("%s\n", message))
+	}
+}
+
 func logMessage(level LogLevel, title string, message string, e error) {
 	switch title {
 	case "", "current":
@@ -143,8 +158,7 @@ func logMessage(level LogLevel, title string, message string, e error) {
 	}
 	if level <= Logger().level && len(message) > 0 {
 		if logMessage := formatLog(level, title, message); len(logMessage) > 0 {
-			log.Printf("%s", logMessage)
-
+			writeMessage(logMessage, false)
 		}
 	}
 	if e != nil {
@@ -152,9 +166,11 @@ func logMessage(level LogLevel, title string, message string, e error) {
 			level = ErrorLevel
 		}
 		if logMessage := formatLog(level, title, e.Error()); len(logMessage) > 0 {
-			log.Printf("%s", logMessage)
+			writeMessage(logMessage, false)
 		}
-		_, _ = os.Stderr.WriteString(fmt.Sprintf("%s\n", formatError(title, e)))
+		if errMessage := formatError(title, e); len(errMessage) > 0 {
+			writeMessage(errMessage, true)
+		}
 	}
 }
 
